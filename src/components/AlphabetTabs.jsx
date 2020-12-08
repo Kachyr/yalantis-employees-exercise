@@ -30,8 +30,15 @@ const alphabet = [
 ];
 
 export const AlphabetTabs = ({ employees, addEmployee, removeEmployee }) => {
-  let sortedEmployeesArr = employees.sort((a, b) => a - b);
-
+  let sortedEmployeesArr = employees.sort(function (a, b) {
+    if (a.lastName < b.lastName) {
+      return -1;
+    }
+    if (a.lastName > b.lastName) {
+      return 1;
+    }
+    return 0;
+  });
 
   const checkHendler = (event, value) => {
     if (event.target.checked) {
@@ -49,18 +56,20 @@ export const AlphabetTabs = ({ employees, addEmployee, removeEmployee }) => {
             <p className="font-weight-bold">{a}</p>
             <div>
               {sortedEmployeesArr.map((emp) => {
-                return emp.lastName[0] === a ? (
-                  <div key={emp.id}>
-                    <input
-                      checked={emp.checked}
-                      type="checkbox"
-                      className="form-check-input"
-                      id="customCheck1"
-                      onChange={(e) => checkHendler(e, emp.id)}
-                    ></input>
-                    <p>{emp.lastName + " " + emp.firstName}</p>
-                  </div>
-                ) : null;
+                if (emp.lastName[0] === a) {
+                  return (
+                    <div key={emp.id}>
+                      <input
+                        checked={emp.checked}
+                        type="checkbox"
+                        className="form-check-input"
+                        id="customCheck1"
+                        onChange={(e) => checkHendler(e, emp.id)}
+                      ></input>
+                      <p>{emp.lastName + " " + emp.firstName}</p>
+                    </div>
+                  );
+                } else return null;
               })}
             </div>
           </div>

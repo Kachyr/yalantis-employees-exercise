@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 
 class Employees extends React.Component {
   componentDidMount() {
-    if ("state" in localStorage === null) this.props.getEmployeesThunk();
+    if (!localStorage.getItem('state')) this.props.getEmployeesThunk();
   }
 
   render() {
