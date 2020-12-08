@@ -27,16 +27,23 @@ function formatDate(date) {
 //============================
 
 export const Birthday = ({ employees }) => {
+  let checkedEmp = false;
+
+  employees.map((emp) =>
+    emp.checked ? (checkedEmp = true) : (checkedEmp = false)
+  );
   return (
     <div className="col">
       <h2>Employees Birthday</h2>
       <ul className="list-group">
         {employees.length ? (
-          employees.map( (emp) => emp.checked ? (
-            <li key={emp.id} className="list-group-item ">
-              {`${emp.firstName} ${emp.lastName} - ${formatDate(emp.dob)}`}
-            </li>
-          ):null)
+          employees.map((emp) =>
+            emp.checked ? (
+              <li key={emp.id} className="list-group-item ">
+                {`${emp.firstName} ${emp.lastName} - ${formatDate(emp.dob)}`}
+              </li>
+            ) : null
+          )
         ) : (
           <li key="No users chosen" className="list-group-item ">
             Chose some people!
@@ -46,11 +53,3 @@ export const Birthday = ({ employees }) => {
     </div>
   );
 };
-
-// employees.map((emp) =>
-//           pointedPeopleID.some((id) => id === emp.id) ? (
-//             <li key={emp.id} className="list-group-item ">
-//               {`${emp.firstName} ${emp.lastName} - ${emp.dob}`}
-//             </li>
-//           ) : null
-//         )
